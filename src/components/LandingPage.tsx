@@ -36,7 +36,7 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
           <div className="flex items-center gap-2.5">
             <div className="w-3 h-3 bg-[#ff2200] rounded-full animate-pulse shadow-[0_0_10px_#ff2200]"></div>
             <span className="text-xl font-bold tracking-tighter text-[#ff2200] font-mono flex items-center gap-1">
-              TECH_SYSTEM_V.4
+              DEVGROWTH
             </span>
           </div>
           
@@ -45,27 +45,26 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
             onClick={() => onLogin('login')}
             className="flex items-center gap-2 px-4 py-2 text-sm font-mono border border-[#ff220088] bg-[#030304] text-[#ff2200] hover:text-white hover:bg-[#ff220022] rounded-none transition duration-150 cursor-pointer shadow-[0_0_10px_rgba(255,34,0,0.15)] font-mono"
           >
-            <img src="https://www.google.com/favicon.ico" width="16" height="16" alt="Google" className="rounded-full bg-white p-0.5" />
             INICIAR_SESION
           </button>
         </div>
       </nav>
 
       {/* HERO SECTION */}
-      <header className="max-w-6xl mx-auto px-4 md:px-8 pt-16 pb-20 relative z-10">
+      <header className="max-w-6xl mx-auto px-2 md:px-8 pt-16 pb-20 relative z-10">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 flex flex-col items-start">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-none bg-[#ff220011] border border-[#ff220055] text-xs font-semibold uppercase tracking-wider text-[#ff2200] mb-5 font-mono">
               <span className="w-1.5 h-1.5 bg-[#ff2200] rounded-full animate-ping" /> CORE_SYSTEM_INITIATED_OK
             </span>
-            <h1 className="text-4xl sm:text-5xl lg:text-5xl font-bold tracking-tight text-white leading-none mb-6 font-mono">
-              REGISTRA_TU_SISTEMA_ <br />
-              <span className="text-[#ff2200] drop-shadow-[0_0_12px_rgba(255,34,0,0.4)] text-shadow-red">
-                CRECIMIENTO_DIARIO
-              </span>
+            <h1 className="text-[2rem] font-bold tracking-tight text-white leading-none mb-6 font-mono">
+              CONVIERTE_TU_APRENDIZAJE_<br />
+                EN_<span className="text-[#ff4900cf] drop-shadow-[0_0_15px_rgba(255,77,0,0.82)] text-shadow-yellow">
+                EVIDENCIA
+            </span>
             </h1>
             <p className="text-gray-400 text-base sm:text-lg leading-relaxed mb-8 max-w-xl font-mono">
-              Registra tu progreso en la nube, documenta aprendizajes y visualiza tu ritmo de developer con telemetría de soporte de precisión.
+              Registra tu progreso como desarrollador, documenta lo que aprendes cada semana y visualiza tu crecimiento profesional a lo largo del tiempo.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 items-stretch sm:items-center w-full sm:w-auto">
               <button 
@@ -76,12 +75,7 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
                 <img src="https://www.google.com/favicon.ico" width="20" height="20" alt="Google" className="rounded-full bg-white p-0.5" />
                 ACCEDER_CON_GOOGLE
               </button>
-              <a 
-                href="#como-funciona" 
-                className="inline-flex items-center justify-center gap-2 px-6 py-4 text-sm font-mono text-[#ff220099] hover:text-[#ff2200] transition group border border-transparent hover:border-[#ff220033] rounded-none"
-              >
-                MAS_DETALLES <ArrowDown size={14} className="text-[#ff2200] group-hover:translate-y-1 transition-transform" />
-              </a>
+              
             </div>
           </div>
 
@@ -97,23 +91,36 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
                   <span className="w-2.5 h-2.5 rounded-none bg-[#ff2200] inline-block opacity-85"></span>
                   <span className="w-2.5 h-2.5 rounded-none bg-[#00ff99] inline-block opacity-85"></span>
                 </div>
-                <span className="text-[#ff2200] text-[10px] tracking-widest font-mono uppercase">TERMINAL_DEV_SESSION</span>
+                <span className="text-[#ff2200] text-[10px] tracking-widest font-mono uppercase">DEVGROWTH</span>
                 <div></div>
               </div>
 
               {/* Terminal Code Body */}
               <div className="p-5 overflow-auto max-height-[240px] text-[#e0e0e0] leading-normal">
-                <pre className="text-gray-600 mb-2"># Sincronizando capas del servidor...</pre>
-                <pre className="text-[#ff2200] mb-3">$ fetch --supabase --metadata</pre>
+                <pre className="text-gray-600 mb-2"># Analizando historial de crecimiento...</pre>
+
+                <pre className="text-[#ff2200] mb-3">$ npm run growth-report</pre>
+
                 <div className="text-[#00ff99] bg-[#00ff99]/5 p-2.5 rounded-none border border-[#00ff99]/20 mb-4 whitespace-pre-line text-[11px] leading-relaxed">
-                  <span className="font-bold">🔑 DB_STATUS:</span> SUPABASE_CONNECTED_OK ✔{'\n'}
-                  <span className="font-bold">🔒 AUTH_TKN:</span> GOOGLE_TOKEN_VALID ✔{'\n'}
-                  <span className="font-bold">📊 ISOLATION:</span> USER_ID_SCHEMATIC_LAYER ✔
+                  <span className="font-bold">📅 WEEKS_TRACKED:</span> 24 ✔{'\n'}
+                  <span className="font-bold">⏱ HOURS_LOGGED:</span> 143 ✔{'\n'}
+                  <span className="font-bold">🧠 LESSONS_LEARNED:</span> 37 ✔
                 </div>
-                <pre className="text-gray-400">$ devsystem --run-test</pre>
+
+                <pre className="text-gray-400">$ git log --progress</pre>
+
                 <pre className="text-white bg-[#111111] p-3 rounded-none border border-[#ff220044] whitespace-pre-wrap overflow-ellipsis">
-                  <code>{typedCode}</code>
-                  <span className="w-2 h-4 bg-[#ff2200] inline-block animate-pulse align-middle ml-1"></span>
+                {`commit 18b7d4e
+                feat: connected first database
+
+                const developer = {
+                  consistency: "ACTIVE",
+                  confidence: "INCREASING",
+                  experience: "ACCUMULATING"
+                };
+
+                developer.grow();`}
+                <span className="w-2 h-4 bg-[#ff2200] inline-block animate-pulse align-middle ml-1"></span>
                 </pre>
               </div>
             </div>
@@ -125,7 +132,7 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
               </div>
               <div className="text-left font-mono">
                 <div className="text-[9px] text-[#666]">SYSTEM_ENV</div>
-                <div className="text-xs font-bold text-white">React + Supabase</div>
+                <div className="text-xs font-bold text-white">PROGRESS_LOG</div>
               </div>
             </div>
 
@@ -148,17 +155,20 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
-              <span className="text-xs font-mono font-bold tracking-wider text-[#ff2200] bg-[#ff220011] px-3 py-1 rounded-none border border-[#ff220033] uppercase">
+              <span className="text-s font-mono font-bold tracking-wider text-[#ff2200] bg-[#ff220011] px-4 py-2 rounded-none border border-[#ff220033] uppercase">
                 EL_DESAFIO_DEL_DEVELOPER
               </span>
               <h2 className="text-3xl font-bold text-white mt-4 mb-6 leading-tight">
-                El problema no es aprender.<br />Es olvidar cuánto has avanzado.
+                El problema no es aprender.<br />
+                <span className="text-[#ff7800cf] drop-shadow-[0_0_15px_rgba(255,159,0,0.82)] text-shadow-yellow">
+                Es olvidar cuánto has avanzado.
+            </span>
               </h2>
               <p className="text-gray-400 leading-relaxed mb-6">
-                Los programadores pasan el día saltando de tecnologías, resolviendo errores difíciles y completando funcionalidades ocultas, pero rara vez llevan un registro de sus hitos. Sin un sistema de documentación táctica, la motivación cae y el síndrome del impostor se acumula.
+                Los desarrolladores y estudiantes aprenden constantemente nuevas tecnologías, resuelven errores y completan proyectos. Sin embargo, muchas veces sienten que no están progresando porque no tienen una forma clara de registrar y visualizar todo lo que han logrado.
               </p>
-              <div className="p-4 border-l-2 border-[#ff2200] bg-[#111111] rounded-none text-xs text-[#ff220099] leading-relaxed">
-                "La constancia se alimenta de retroalimentación. Ver tu progreso histórico de manera objetiva te otorga la confianza necesaria para postularte a mejores roles."
+              <div className="p-4 border-l-2 border-[#ff005ccc] bg-[#111111] rounded-none text-xs text-[#ff005ccc] leading-relaxed">
+                "Tu progreso habla por ti. Ver cuánto has avanzado te ayuda a confiar más en lo que eres capaz de lograr."
               </div>
             </div>
 
@@ -167,7 +177,7 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
                 <div className="text-[#ef4444] p-2.5 rounded-none bg-[#ef444411] border border-[#ef444433]"><ShieldAlert size={18} /></div>
                 <div>
                   <h4 className="font-mono text-white text-sm font-bold uppercase">Pérdida de Tiempo Recurrente</h4>
-                  <p className="text-xs text-gray-500 mt-1">Horas en Google buscando la solución al mismo bug críptico que ya habías resuelto hace tres meses.</p>
+                  <p className="text-xs text-gray-500 mt-1">Horas en Google buscando la solución al mismo bug crítico que ya habías resuelto hace tres meses.</p>
                 </div>
               </div>
               <div className="p-4 bg-[#0a0a0a] border border-[#ff220033] rounded-none flex gap-4 items-start hover:border-[#ff220088] transition shadow-[0_0_15px_rgba(255,34,0,0.05)]">
@@ -191,7 +201,7 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
           Lo que conseguirás siendo regular
         </h2>
         <p className="text-gray-400 max-w-lg mx-auto text-sm mb-12">
-          Telemetría acumulada por un desarrollador promedio durante un ciclo completo de 6 meses de registro táctico en la plataforma.
+          Todo el camino recorrido por un desarrollador durante 6 meses de crecimiento continuo.
         </p>
 
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
@@ -219,17 +229,19 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
         <div className="absolute inset-0 bg-[#ff2200]/[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto px-4 relative z-10">
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-none mb-6">
-            Tu desarrollo profesional merece ser visible.
+            Tu desarrollo profesional merece <br />
+            <span className="text-[#ff7800cf] drop-shadow-[0_0_15px_rgba(255,159,0,0.82)] text-shadow-yellow">
+                ser visible.
+            </span>
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto text-base sm:text-lg mb-10 leading-relaxed">
-            No dejes tus esfuerzos semanales a la deriva o a la memoria a corto plazo. Comienza tu bitácora tecno-programadora hoy mismo y consolida tu legado de aprendizaje.
+            Tu aprendizaje merece algo más que la memoria a corto plazo. Regístralo, visualízalo y conviértelo en evidencia de todo lo que has avanzado.
           </p>
           <button 
             id="login-btn-cta"
             onClick={() => onLogin('register')}
             className="inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-bold text-[#ff2200] border-2 border-[#ff2200] bg-[#ff220011] hover:bg-[#ff220022] rounded-none transition duration-150 cursor-pointer shadow-[0_0_20px_rgba(255,34,0,0.3)] font-mono"
           >
-            <img src="https://www.google.com/favicon.ico" width="20" height="20" alt="Google" className="rounded-full bg-white p-0.5" />
             INICIAR_MI_BITACORA
           </button>
         </div>
@@ -240,10 +252,10 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
         <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-[#ff2200] rounded-full animate-pulse shadow-[0_0_10px_#ff2200]"></div>
-            <span className="font-mono text-white text-base font-bold">TECH_SYSTEM_V.4</span>
+            <span className="font-mono text-white text-base font-bold">DEVGROWTH</span>
           </div>
           <span className="text-xs text-gray-600 font-mono">
-            BUILD_STABLE_091 · Hecho con tecnología neon para programadores enfocados en crecer.
+            © 2026 DevGrowth. Creado para quienes construyen un poco mejor cada semana.
           </span>
         </div>
       </footer>

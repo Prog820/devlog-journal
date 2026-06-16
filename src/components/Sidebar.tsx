@@ -74,7 +74,7 @@ export default function Sidebar({ activePage, onPageChange, user, onLogout }: Si
             <div className="w-3 h-3 bg-[#ff2200] rounded-full animate-pulse shadow-[0_0_10px_#ff2200]"></div>
             <div>
               <span className="text-lg font-bold tracking-tight text-white font-mono flex items-center gap-0.5">
-                TECH_SYSTEM_V.4
+                DEVGROWTH
               </span>
             </div>
           </div>
