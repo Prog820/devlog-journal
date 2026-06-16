@@ -1,0 +1,6 @@
+{
+  "name": "Developer Growth Journal",
+  "description": "Un diario para desarrolladores enfocado en documentar tu progreso semanal, aprendizajes, logros, bloqueos y objetivos.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
