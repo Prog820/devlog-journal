@@ -57,13 +57,15 @@ export default function Dashboard({ weeks }: DashboardProps) {
   return (
     <div className="space-y-8 animate-fade-in">
       {/* Title */}
+      <div className="flex items-start justify-between">
       <div>
         <h2 className="text-2xl font-bold font-sans tracking-tight text-white flex items-center gap-2 text-shadow-red text-shadow-[0_0_15px_rgba(255,107,0,0.3)]">
           <Activity className="text-[#ff5500] h-6 w-6" /> Dashboard
         </h2>
-        <p className="text-xs font-mono text-[#a18265]/80 mt-1">
-          PANEL PRINCIPAL DE TELEMETRÍA Y CONTROL DE PROGRESO
+         <p className="text-xs font-mono text-[#a18265]/80 mt-1">
+           PANEL PRINCIPAL DE TELEMETRÍA Y CONTROL DE PROGRESO
         </p>
+      </div>
       </div>
 
       {/* Stats Bento Grid */}

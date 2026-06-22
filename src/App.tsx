@@ -16,6 +16,7 @@ import Guardados from './components/Guardados';
 import Logros from './components/Logros';
 import Configuracion from './components/Configuracion';
 import AuthModal from './components/AuthModal';
+import DevMentor from './components/DevMentor';
 
 export default function App() {
   const [activePage, setActivePage] = useState<string>('dashboard');
@@ -305,12 +306,13 @@ export default function App() {
       </>
     );
   }
+  
 
   // Helper page renderer
   const renderPageContent = () => {
     switch (activePage) {
       case 'dashboard':
-        return <Dashboard weeks={weeks} />;
+      return <Dashboard weeks={weeks} />;
       case 'diario':
         return (
           <Diario 
@@ -366,6 +368,7 @@ export default function App() {
     }
   };
 
+
   return (
     <div className="min-h-screen bg-[#0d0d0d] text-[#e0e0e0] font-sans selection:bg-[#ff2200]/30 selection:text-white flex flex-col md:flex-row relative border-4 border-[#ff220033]">
       {/* Background Grid Accent */}
@@ -394,6 +397,10 @@ export default function App() {
           </motion.div>
         </AnimatePresence>
       </main>
+
+      {activePage !== 'configuracion' && (
+        <DevMentor weeks={weeks} savedErrorIds={savedErrorIds} />
+      )}
 
       {/* Dynamic Glowing Notification Toast Box */}
       <AnimatePresence>
