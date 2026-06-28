@@ -25,6 +25,10 @@ export default function App() {
   const [savedErrorIds, setSavedErrorIds] = useState<number[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [globalSearchQuery, setGlobalSearchQuery] = useState<string>('');
+  const [chatMessages, setChatMessages] = useState<{role: 'user' | 'assistant', content: string}[]>([]);
+  const [aiErrors, setAiErrors] = useState<any[]>([]);
+  const [aiAnalysis, setAiAnalysis] = useState<{titulo: string; descripcion: string; solucion: string; lenguaje: string} | null>(null);
+  const [aiErrorInput, setAiErrorInput] = useState<string>('');
 
   // Custom Toast State
   const [toast, setToast] = useState<{ show: boolean; message: string }>({ show: false, message: '' });
@@ -39,6 +43,8 @@ export default function App() {
   // Auth modal overlay controllers (Login vs Register)
   const [isAuthModalOpen, setIsAuthModalOpen] = useState<boolean>(false);
   const [authModalMode, setAuthModalMode] = useState<'login' | 'register'>('login');
+
+  
 
   // ----------------------------------------------------
   // 1. SUPABASE AUTH INTIALIZATION & LISTENERS
@@ -72,6 +78,9 @@ export default function App() {
         setCurrentUser(null);
         setWeeks([]);
         setSavedErrorIds([]);
+        setAiErrors([]);
+        setAiAnalysis(null);
+        setAiErrorInput('');
       }
       setLoading(false);
     });
@@ -113,9 +122,31 @@ export default function App() {
         const ids = (savedData || []).map(r => Number(r.error_id));
         setSavedErrorIds(ids);
       }
+
+      const { data: aiData, error: aiError } = await supabase
+        .from('errores_ia')
+        .select('*')
+        .eq('user_id', user.id)
+        .order('created_at', { ascending: false });
+
+      if (aiError) {
+        console.error('Error loading AI errors:', aiError);
+      } else {
+        setAiErrors(aiData || []);
+      }
     } catch (err) {
       console.error('Database Sync Error:', err);
     }
+  };
+
+    const syncAiErrors = async () => {
+    if (!currentUser) return;
+    const { data } = await supabase
+      .from('errores_ia')
+      .select('*')
+      .eq('user_id', currentUser.id)
+      .order('created_at', { ascending: false });
+    setAiErrors(data || []);
   };
 
   // ----------------------------------------------------
@@ -135,6 +166,9 @@ export default function App() {
       setCurrentUser(null);
       setWeeks([]);
       setSavedErrorIds([]);
+      setAiErrors([]);
+      setAiAnalysis(null);
+      setAiErrorInput('');
       setActivePage('dashboard');
       showToast('✓ Sesión cerrada. Su progreso está seguro.');
     }
@@ -252,18 +286,27 @@ export default function App() {
 
       if (sError) throw sError;
 
-      // 3. Delete user from auth.users securely using PostgreSQL Security Definer RPC
+      // 3. Purge all AI analyzed errors
+      const { error: aiError } = await supabase
+        .from('errores_ia')
+        .delete()
+        .eq('user_id', currentUser.id);
+
+      if (aiError) throw aiError;
+
+      // 4. Delete user from auth.users securely using PostgreSQL Security Definer RPC
       const { error: rpcError } = await supabase.rpc('delete_user');
       if (rpcError) {
         console.error('Error invoking delete_user RPC:', rpcError.message);
         throw new Error('Error al remover cuenta en auth.users: ' + rpcError.message);
       }
 
-      // 4. Clear session and sign out
+      // 5. Clear session and sign out
       await supabase.auth.signOut();
       setCurrentUser(null);
       setWeeks([]);
       setSavedErrorIds([]);
+      setAiErrors([]);
       setActivePage('dashboard');
     } catch (err: any) {
       throw err;
@@ -280,14 +323,8 @@ export default function App() {
   // Render Loader Splash
   if (loading) {
     return (
-      <div className="min-h-screen bg-[#0d0d0d] text-[#e0e0e0] flex flex-col items-center justify-center font-mono border-4 border-[#ff220033]">
-        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,34,0,0.015)_1px,transparent_1px),linear-gradient(90deg,rgba(255,34,0,0.015)_1px,transparent_1px)] bg-[size:32px_32px] pointer-events-none"></div>
-        <div className="space-y-4 text-center z-10">
-          <Loader2 className="animate-spin text-[#ff2200] h-10 w-10 mx-auto" />
-          <h3 className="text-sm font-semibold tracking-widest text-[#ff2200] uppercase animate-pulse">
-            Estableciendo comunicación táctica con Supabase DB_
-          </h3>
-        </div>
+      <div className="min-h-screen bg-[#0d0d0d] flex items-center justify-center">
+        <Loader2 className="animate-spin text-[#ff2200] h-6 w-6" />
       </div>
     );
   }
@@ -328,30 +365,40 @@ export default function App() {
         let initialQuery = '';
         if (globalSearchQuery.startsWith('id:')) {
           const idStr = globalSearchQuery.replace('id:', '');
-          const errorId = Number(idStr);
           // Let's reset the redirection search once loaded
           setGlobalSearchQuery('');
           // Filter specifically
-          initialQuery = idStr;
+          initialQuery = `id:${idStr}`;
         }
         return (
-          <Errores 
-            savedErrorIds={savedErrorIds} 
-            onToggleSaveError={handleToggleSaveError} 
-            onShowToast={showToast}
-            initialSearchQuery={initialQuery}
-          />
-        );
+      <Errores 
+        savedErrorIds={savedErrorIds} 
+        onToggleSaveError={handleToggleSaveError} 
+        onShowToast={showToast}
+        initialSearchQuery={initialQuery}
+        currentUserId={currentUser?.id}
+        onAiErrorSaved={syncAiErrors}
+        aiAnalysis={aiAnalysis}
+        onAiAnalysisChange={setAiAnalysis}
+        aiErrorInput={aiErrorInput}
+        onAiErrorInputChange={setAiErrorInput}
+      />
+    );
       case 'guardados':
         return (
           <Guardados 
             savedErrorIds={savedErrorIds} 
             onRemoveBookmark={handleToggleSaveError} 
-            onNavigateToErrorInLibrary={handleNavigateToErrorInLibrary} 
+            onNavigateToErrorInLibrary={handleNavigateToErrorInLibrary}
+            aiErrors={aiErrors}
+            onDeleteAiError={async (id: string) => {
+              await supabase.from('errores_ia').delete().eq('id', id);
+              setAiErrors(prev => prev.filter(e => e.id !== id));
+            }}
           />
         );
       case 'logros':
-        return <Logros weeks={weeks} savedErrorIds={savedErrorIds} />;
+        return <Logros weeks={weeks} savedErrorIds={savedErrorIds} aiErrorsCount={aiErrors.length} chatMessagesCount={chatMessages.length} />;
       case 'configuracion':
         return (
           <Configuracion 
@@ -399,7 +446,14 @@ export default function App() {
       </main>
 
       {activePage !== 'configuracion' && (
-        <DevMentor weeks={weeks} savedErrorIds={savedErrorIds} />
+        <DevMentor 
+          weeks={weeks} 
+          savedErrorIds={savedErrorIds}
+          chatMessages={chatMessages}
+          onChatMessagesChange={setChatMessages}
+          user={currentUser}
+          aiErrorsCount={aiErrors.length}
+        />
       )}
 
       {/* Dynamic Glowing Notification Toast Box */}

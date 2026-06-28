@@ -396,4 +396,40 @@ export const ACHIEVEMENTS: Achievement[] = [
     desc: "Guardaste 3 errores en tu biblioteca", 
     check: (_weeks, savedErrors) => savedErrors.length >= 3 
   },
+
+  {
+    id: 'primer-analisis-ia',
+    icon: 'Sparkles',
+    name: 'Primer análisis IA',
+    desc: 'Analizaste tu primer error con inteligencia artificial',
+    check: (_w, _s, aiErrorsCount = 0) => aiErrorsCount >= 1
+  },
+  {
+    id: 'aprendiz-ia',
+    icon: 'BrainCircuit',
+    name: 'Aprendiz de IA',
+    desc: 'Analizaste 5 errores con inteligencia artificial',
+    check: (_w, _s, aiErrorsCount = 0) => aiErrorsCount >= 5
+  },
+  {
+    id: 'biblioteca-inteligente',
+    icon: 'LibraryBig',
+    name: 'Biblioteca inteligente',
+    desc: 'Analizaste 10 errores con inteligencia artificial',
+    check: (_w, _s, aiErrorsCount = 0) => aiErrorsCount >= 10
+  },
+  {
+    id: 'conversador',
+    icon: 'MessageSquare',
+    name: 'Conversador',
+    desc: 'Enviaste tu primer mensaje al chat de DevMentor IA',
+    check: (_w, _s, _ai, chatMessagesCount = 0) => chatMessagesCount >= 1
+  },
+  {
+    id: 'mentor-frecuente',
+    icon: 'Bot',
+    name: 'Mentor frecuente',
+    desc: 'Enviaste 20 mensajes al chat de DevMentor IA',
+    check: (_w, _s, _ai, chatMessagesCount = 0) => chatMessagesCount >= 20
+  },
 ];

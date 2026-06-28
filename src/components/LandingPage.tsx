@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { Terminal, Bot, Sparkles, BookOpen, Star, ShieldAlert, Target, Trophy, Play, ArrowDown, ChevronRight, Zap } from 'lucide-react';
+import { Terminal, Bot, Sparkles, BookOpen, Star, ShieldAlert, Target, Trophy, Play, ArrowDown, Zap } from 'lucide-react';
+import { motion } from 'motion/react';
 
 interface LandingPageProps {
   onLogin: (mode?: 'login' | 'register') => void;
@@ -51,13 +52,19 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
       </nav>
 
       {/* HERO SECTION */}
-      <header className="max-w-6xl mx-auto px-2 md:px-8 pt-16 pb-20 relative z-10">
+      <motion.header
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="max-w-6xl mx-auto px-2 md:px-8 pt-16 pb-20 relative z-10"
+      >
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           <div className="lg:col-span-7 flex flex-col items-start">
             <span className="inline-flex items-center gap-1.5 px-3 py-1 rounded-none bg-[#ff220011] border border-[#ff220055] text-xs font-semibold uppercase tracking-wider text-[#ff2200] mb-5 font-mono">
               <span className="w-1.5 h-1.5 bg-[#ff2200] rounded-full animate-ping" /> CORE_SYSTEM_INITIATED_OK
             </span>
-            <h1 className="text-[2rem] font-bold tracking-tight text-white leading-none mb-6 font-mono">
+            <h1 className="text-[1.55rem] min-[390px]:text-[1.75rem] sm:text-[2rem] font-bold tracking-tight text-white leading-tight sm:leading-none mb-6 font-mono break-words max-w-full">
               CONVIERTE_TU_APRENDIZAJE_<br />
                 EN_<span className="text-[#ff4900cf] drop-shadow-[0_0_15px_rgba(255,77,0,0.82)] text-shadow-yellow">
                 EVIDENCIA
@@ -148,10 +155,16 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
           </div>
 
         </div>
-      </header>
+      </motion.header>
 
       {/* COMPONENT PROBLEM: "El Problema" */}
-      <section className="bg-[#030304] border-y border-[#ff220033] py-20 relative font-mono">
+      <motion.section
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="bg-[#030304] border-y border-[#ff220033] py-20 relative font-mono"
+      >
         <div className="max-w-6xl mx-auto px-4 md:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             <div>
@@ -190,10 +203,141 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
+
+      {/* COMPONENT AI INTELLIGENCE */}
+      <motion.section
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="py-20 max-w-6xl mx-auto px-4 md:px-8 relative font-mono overflow-hidden"
+      >
+        <div className="absolute inset-x-0 top-1/2 h-px bg-gradient-to-r from-transparent via-[#ff220033] to-transparent pointer-events-none"></div>
+        <div className="absolute top-10 right-4 md:right-16 w-64 h-64 bg-[radial-gradient(ellipse_at_center,rgba(0,255,153,0.05),transparent_70%)] pointer-events-none"></div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.45, ease: 'easeOut' }}
+          className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center relative z-10"
+        >
+          <div className="lg:col-span-5">
+            <span className="inline-flex items-center gap-1.5 text-xs font-mono font-bold tracking-wider text-[#00ff99] bg-[#00ff9911] px-3 py-1 rounded-none border border-[#00ff9933] uppercase mb-5">
+              <Sparkles size={13} /> AI_MENTOR_CORE
+            </span>
+            <h2 className="text-3xl sm:text-4xl font-bold text-white leading-tight mb-5">
+              Inteligencia artificial que entiende tu progreso.
+            </h2>
+            <p className="text-gray-400 text-sm sm:text-base leading-relaxed mb-7">
+              DevGrowth usa IA para analizar tus registros, detectar patrones de aprendizaje y convertir tus bloqueos en recomendaciones concretas para avanzar con más claridad.
+            </p>
+          </div>
+
+          <div className="lg:col-span-7 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            {[
+              {
+                icon: Bot,
+                title: 'Analiza tus errores',
+                text: 'Interpreta mensajes de error, resume qué significan y propone pasos simples para resolverlos.'
+              },
+              {
+                icon: Target,
+                title: 'Detecta patrones',
+                text: 'Revisa semanas, tecnologías, horas, satisfacción y bloqueos para encontrar señales repetidas.'
+              },
+              {
+                icon: BookOpen,
+                title: 'Acelera el aprendizaje',
+                text: 'Transforma tus registros en explicaciones claras para que entiendas qué practicar después.'
+              },
+              {
+                icon: Zap,
+                title: 'Recomienda con contexto',
+                text: 'Personaliza sugerencias usando tu historial, errores guardados y conversaciones con DevMentor.'
+              },
+              {
+                icon: Star,
+                title: 'Mide tu avance',
+                text: 'Conecta logros, constancia y evolución semanal para mostrar progreso real, no solo actividad.'
+              },
+              {
+                icon: Terminal,
+                title: 'Usa tus datos clave',
+                text: 'Trabaja con aprendizajes, bloqueos, logros, mejoras, tecnologías, horas y biblioteca de errores.'
+              }
+            ].map((item, index) => {
+              const Icon = item.icon;
+              return (
+                <motion.div
+                  key={item.title}
+                  initial={{ opacity: 0, y: 18 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.3 }}
+                  transition={{ duration: 0.35, delay: index * 0.05, ease: 'easeOut' }}
+                  className="bg-[#0a0a0a] border border-[#ff220033] hover:border-[#00ff9955] p-4 rounded-none transition duration-200 shadow-[0_0_15px_rgba(255,34,0,0.04)] group"
+                >
+                  <div className="flex items-start gap-3">
+                    <div className="w-9 h-9 bg-[#ff220011] group-hover:bg-[#00ff9911] border border-[#ff220033] group-hover:border-[#00ff9933] flex items-center justify-center text-[#ff2200] group-hover:text-[#00ff99] transition">
+                      <Icon size={17} />
+                    </div>
+                    <div>
+                      <h3 className="text-sm font-bold text-white uppercase tracking-wide mb-1">
+                        {item.title}
+                      </h3>
+                      <p className="text-xs text-gray-500 leading-relaxed">
+                        {item.text}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
+          </div>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.25 }}
+          transition={{ duration: 0.45, delay: 0.1, ease: 'easeOut' }}
+          className="relative z-10 mt-12 bg-[#030304] border border-[#00ff9933] rounded-none overflow-hidden shadow-[0_0_25px_rgba(0,255,153,0.06)]"
+        >
+          <div className="px-4 py-2 border-b border-[#00ff9933] bg-[#07110d] flex items-center justify-between">
+            <div className="flex items-center gap-2">
+              <span className="w-2 h-2 bg-[#ff2200] inline-block"></span>
+              <span className="w-2 h-2 bg-[#ff7800] inline-block"></span>
+              <span className="w-2 h-2 bg-[#00ff99] inline-block"></span>
+            </div>
+            <span className="text-[10px] text-[#00ff99] uppercase tracking-widest">DEVMENTOR_ANALYSIS_PIPELINE</span>
+            <div></div>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-[#00ff991a]">
+            <div className="bg-[#030304] p-5">
+              <div className="text-[10px] text-[#ff2200] uppercase tracking-widest mb-2">INPUT_DATA</div>
+              <p className="text-xs text-gray-400 leading-relaxed">Semanas registradas, errores guardados, bloqueos, satisfacción y tecnologías estudiadas.</p>
+            </div>
+            <div className="bg-[#030304] p-5">
+              <div className="text-[10px] text-[#00ff99] uppercase tracking-widest mb-2">AI_REASONING</div>
+              <p className="text-xs text-gray-400 leading-relaxed">Cruza señales, identifica tendencias y prioriza acciones útiles para tu siguiente semana.</p>
+            </div>
+            <div className="bg-[#030304] p-5">
+              <div className="text-[10px] text-[#ff7800] uppercase tracking-widest mb-2">OUTPUT_GUIDANCE</div>
+              <p className="text-xs text-gray-400 leading-relaxed">Entrega explicaciones, sugerencias personalizadas y alertas para mantener tu crecimiento visible.</p>
+            </div>
+          </div>
+        </motion.div>
+      </motion.section>
 
       {/* COMPONENT POTENTIAL / STATS */}
-      <section className="py-20 max-w-6xl mx-auto px-4 md:px-8 text-center relative font-mono">
+      <motion.section
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="py-20 max-w-6xl mx-auto px-4 md:px-8 text-center relative font-mono"
+      >
         <span className="text-xs font-mono font-bold tracking-wider text-[#ff2200] bg-[#ff220011] px-3 py-1 rounded-none border border-[#ff220033] uppercase">
           SIMULADOR_TELEMETRIA
         </span>
@@ -222,10 +366,16 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
             <div className="text-xs text-gray-500 uppercase font-mono">Constancia Promedio</div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* COMPONENT FINAL CTA */}
-      <section className="bg-gradient-to-b from-[#030304] to-[#0d0d0d] py-20 border-t border-[#ff220033] text-center relative font-mono">
+      <motion.section
+        initial={{ opacity: 0, y: 28 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.18 }}
+        transition={{ duration: 0.45, ease: 'easeOut' }}
+        className="bg-gradient-to-b from-[#030304] to-[#0d0d0d] py-20 border-t border-[#ff220033] text-center relative font-mono"
+      >
         <div className="absolute inset-0 bg-[#ff2200]/[0.01] pointer-events-none"></div>
         <div className="max-w-4xl mx-auto px-4 relative z-10">
           <h2 className="text-3xl sm:text-4xl font-bold text-white tracking-tight leading-none mb-6">
@@ -245,10 +395,16 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
             INICIAR_MI_BITACORA
           </button>
         </div>
-      </section>
+      </motion.section>
 
       {/* FOOTER */}
-      <footer className="bg-[#030304] border-t border-[#ff220033] py-8 relative font-mono">
+      <motion.footer
+        initial={{ opacity: 0, y: 24 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, amount: 0.2 }}
+        transition={{ duration: 0.4, ease: 'easeOut' }}
+        className="bg-[#030304] border-t border-[#ff220033] py-8 relative font-mono"
+      >
         <div className="max-w-6xl mx-auto px-4 md:px-8 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-[#ff2200] rounded-full animate-pulse shadow-[0_0_10px_#ff2200]"></div>
@@ -258,7 +414,7 @@ export default function LandingPage({ onLogin }: LandingPageProps) {
             © 2026 DevGrowth. Creado para quienes construyen un poco mejor cada semana.
           </span>
         </div>
-      </footer>
+      </motion.footer>
     </div>
   );
 }

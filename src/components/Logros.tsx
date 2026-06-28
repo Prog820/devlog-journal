@@ -1,6 +1,6 @@
 import React from 'react';
 import { 
-  Trophy, Sprout, Star, Flame, Clock, Zap, SmilePlus, Layers, Bug, Lock 
+  Trophy, Sprout, Star, Flame, Clock, Zap, SmilePlus, Layers, Bug, Lock, Sparkles, MessageSquare, Bot, BrainCircuit, LibraryBig
 } from 'lucide-react';
 import { Week } from '../types';
 import { ACHIEVEMENTS } from '../data/errors';
@@ -8,9 +8,11 @@ import { ACHIEVEMENTS } from '../data/errors';
 interface LogrosProps {
   weeks: Week[];
   savedErrorIds: number[];
+  aiErrorsCount: number;
+  chatMessagesCount: number;
 }
 
-export default function Logros({ weeks, savedErrorIds }: LogrosProps) {
+export default function Logros({ weeks, savedErrorIds, aiErrorsCount, chatMessagesCount }: LogrosProps) {
   
   // Custom manual mappings for Lucide components matching achievement definition keys
   const getIconComponent = (key: string, unlocked: boolean) => {
@@ -34,6 +36,16 @@ export default function Logros({ weeks, savedErrorIds }: LogrosProps) {
         return <Layers size={size} className={colorClass} />;
       case 'Bug':
         return <Bug size={size} className={colorClass} />;
+      case 'Sparkles':
+        return <Sparkles size={size} className={colorClass} />;
+      case 'BrainCircuit':
+        return <BrainCircuit size={size} className={colorClass} />;
+      case 'LibraryBig':
+        return <LibraryBig size={size} className={colorClass} />;
+      case 'MessageSquare':
+        return <MessageSquare size={size} className={colorClass} />;
+      case 'Bot':
+        return <Bot size={size} className={colorClass} />;
       default:
         return <Trophy size={size} className={colorClass} />;
     }
@@ -49,11 +61,16 @@ export default function Logros({ weeks, savedErrorIds }: LogrosProps) {
       case 'SmilePlus': return 'from-pink-400 to-rose-500 shadow-[0_0_15px_rgba(244,63,94,0.3)]';
       case 'Layers': return 'from-violet-400 to-indigo-500 shadow-[0_0_15px_rgba(139,92,246,0.3)]';
       case 'Bug': return 'from-teal-400 to-emerald-500 shadow-[0_0_15px_rgba(20,184,166,0.3)]';
+      case 'Sparkles': return 'from-violet-400 to-purple-500 shadow-[0_0_15px_rgba(139,92,246,0.3)]';
+      case 'BrainCircuit': return 'from-cyan-400 to-blue-500 shadow-[0_0_15px_rgba(34,211,238,0.3)]';
+      case 'LibraryBig': return 'from-emerald-400 to-teal-500 shadow-[0_0_15px_rgba(16,185,129,0.3)]';
+      case 'MessageSquare': return 'from-pink-400 to-fuchsia-500 shadow-[0_0_15px_rgba(244,114,182,0.3)]';
+      case 'Bot': return 'from-amber-400 to-orange-500 shadow-[0_0_15px_rgba(251,146,60,0.3)]';
       default: return 'from-amber-400 to-yellow-500 shadow-[0_0_15px_rgba(245,158,11,0.3)]';
     }
   };
 
-  const unlockedCount = ACHIEVEMENTS.filter(a => a.check(weeks, savedErrorIds)).length;
+  const unlockedCount = ACHIEVEMENTS.filter(a => a.check(weeks, savedErrorIds, aiErrorsCount, chatMessagesCount)).length;
   const totalCount = ACHIEVEMENTS.length;
 
   return (
@@ -87,7 +104,7 @@ export default function Logros({ weeks, savedErrorIds }: LogrosProps) {
       {/* Grid listing */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
         {ACHIEVEMENTS.map(a => {
-          const isUnlocked = a.check(weeks, savedErrorIds);
+          const isUnlocked = a.check(weeks, savedErrorIds, aiErrorsCount, chatMessagesCount);
 
           return (
             <div 

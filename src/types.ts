@@ -29,5 +29,5 @@ export interface Achievement {
   icon: string;
   name: string;
   desc: string;
-  check: (weeks: Week[], savedErrors: number[]) => boolean;
+  check: (weeks: Week[], savedErrors: number[], aiErrorsCount?: number, chatMessagesCount?: number) => boolean;
 }
